@@ -49,10 +49,18 @@ Command|Response
 ping|PONG
 echo 'hello world'|"hello world"
 set <key> <value> | OK
-get <key>|<value>
+get <key>|<value> or nil if it doesn't exist
 incr <key>|Increments an integer value by 1
 decr <key>|Decrements an integer value by 1
 exists <key>|1 if the key exists, 0 if the key doesn't exist
+del <key>|Deletes a k-v pair
+flushall|flushes everything from memory
+expire <key> <seconds>|k-v pair expires in specified seconds
+ttl <key>|Shows the time in seconds for the k-v pair to expire or shows `-2` if it has already expired or key doesn't exist
+setex <key> <time> <value>|set k-v with expiration time
+
+
+You can use key spaces like `server:name`, `server:port`
 
 
 
