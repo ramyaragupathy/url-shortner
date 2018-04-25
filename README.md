@@ -1,5 +1,5 @@
 ## What is Redis?
-- Open Source in-memory data structure store
+- Open Source in-memory data structure store wriiten in C
 ---
 ### What is in-memory data structure store?
 - An in-memory database(IMDB) is also called main memory database system(MMDB) or memory resident database.
@@ -20,8 +20,10 @@
     - Sorted Sets
     - Hashes (similar to objects)
     - Bitmaps
-    - Hyperlogs
+    - Hyperloglogs
     - Geospatial indexes
+    - Bitfields
+    - Streams
 
 - No schema & column names
 - Both as a caching system & persistent DB. eg. Memcached is a caching system and MongoDB is persistent DB. Redis has best of both the worlds combined
