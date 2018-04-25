@@ -5,16 +5,19 @@ const port = 3000
 const shortid = require('shortid')
 const bodyParser = require('body-parser')
 const base_url = 'http://localhost:5000'
+let client
 
 // Set up connection to Redis
+// REDISTOGO_URL is for Heroku deployment
+
 if (process.env.REDISTOGO_URL) {
   console.log(process.env.REDISTOGO_URL)
   const rtg = require('url').parse(process.env.REDISTOGO_URL)
-  const client = require('redis').createClient(rtg.port, rtg.hostname)
+  client = require('redis').createClient(rtg.port, rtg.hostname)
   client.auth(rtg.auth.split(':')[1])
 } else {
   console.log('Creating Redis client ')
-  const client = require('redis').createClient()
+  client = require('redis').createClient()
 }
 // Set up templating
 
@@ -38,6 +41,21 @@ app.use(bodyParser.urlencoded({
 // Define index route
 app.get('/', function (req, res) {
   res.render('index')
+})
+
+app.post('/', function (req, res) {
+  let url = req.body.url
+  console.log('POST url: ', url)
+
+  // Create a hashed short version
+  let id = shortid.generate()
+  console.log('id: ', id)
+
+  // Store them in Redis
+  client.set(id, url, function () {
+    // Display the response
+    res.render('output', { id: id, base_url: base_url })
+  })
 })
 
 // Serve static files
