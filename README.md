@@ -40,7 +40,7 @@
     - `rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist`
 - Redis package information: `brew info redis`
 - Test if redis-server is running:
-`redis-cli ping` => `PONG`
+`redis-cli ping` =&gt; `PONG`
 
 ### Redis-cli commands
 
@@ -49,16 +49,16 @@ Command|Response
 ping|PONG
 echo 'hello world'|"hello world"
 set &lt;key&gt; &lt;value&gt; | OK
-get <key>|<value> or nil if it doesn't exist
-incr <key>|Increments an integer value by 1
-decr <key>|Decrements an integer value by 1
-exists <key>|1 if the key exists, 0 if the key doesn't exist
-del <key>|Deletes a k-v pair
+get &lt;key&gt;|&lt;value&gt; or nil if it doesn't exist
+incr &lt;key&gt;|Increments an integer value by 1
+decr &lt;key&gt;|Decrements an integer value by 1
+exists &lt;key&gt;|1 if the key exists, 0 if the key doesn't exist
+del &lt;key&gt;|Deletes a k-v pair
 flushall|flushes everything from memory
-expire <key> <seconds>|k-v pair expires in specified seconds
-ttl <key>|Shows the time in seconds for the k-v pair to expire or shows `-2` if it has already expired or key doesn't exist
-`setex key <time> <value>|set k-v with expiration time
-mset <key1> <value1> <key2> <value2> | set multiple k-v pairs
+expire &lt;key&gt; &lt;seconds&gt;|k-v pair expires in specified seconds
+ttl &lt;key&gt;|Shows the time in seconds for the k-v pair to expire or shows `-2` if it has already expired or key doesn't exist
+`setex key &lt;time&gt; &lt;value&gt;|set k-v with expiration time
+mset &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; | set multiple k-v pairs
 append &lt;key&gt; &lt;value&gt;|Appends value to the existing key
 
 
