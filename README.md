@@ -116,6 +116,10 @@ hincrby user:user1 age 10|increments age field of hash user:user1 by 10
 hdel user:user1 age|deletes a particular field in the hash user:user1
 hlen user:user1|retruns the number of k-v pairs in the hash
 
+## Redis persistence
+- snapshots of dataset at specified intervals
+- AOF(Append-only file) persistence logs
+
 
 
 
