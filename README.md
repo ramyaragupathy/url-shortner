@@ -1,5 +1,5 @@
 ## What is Redis?
-- Open Source in-memory data structure store wriiten in C
+- Open Source in-memory data structure store written in C
 ---
 ### What is in-memory data structure store?
 - An in-memory database(IMDB) is also called main memory database system(MMDB) or memory resident database.
