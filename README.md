@@ -102,6 +102,20 @@ zrank users user1|returns the rank/index of user1 with users set
 zrange users 0 -1| returns all the members in the sorted set
 zincrby users 10 user1|increments the score of user 1 within the users sorted set by 10. This alters the rank of all the members
 
+### Hash related
+
+Command|Response
+-------|--------
+hset user:ramya name ramya|sets a hash `user:ramya` with k-v `name-ramya`
+hget user:ramya name|gets the name from user:ramya hash
+hgetall user:ramya|gets all the k-v pairs in the user:ramya hash
+hmset user:user1 name firstname surname surname|multiple k-v pairs for a hash
+hkeys user:ramya|returns all the keys of user:ramya hash
+hvals user:ramya|retruns all the values of user:ramya hash
+hincrby user:user1 age 10|increments age field of hash user:user1 by 10
+hdel user:user1 age|deletes a particular field in the hash user:user1
+hlen user:user1|retruns the number of k-v pairs in the hash
+
 
 
 
