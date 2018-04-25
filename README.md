@@ -57,7 +57,7 @@ del &lt;key&gt;|Deletes a k-v pair
 flushall|flushes everything from memory
 expire &lt;key&gt; &lt;seconds&gt;|k-v pair expires in specified seconds
 ttl &lt;key&gt;|Shows the time in seconds for the k-v pair to expire or shows `-2` if it has already expired or key doesn't exist
-`setex key &lt;time&gt; &lt;value&gt;|set k-v with expiration time
+setex key &lt;time&gt; &lt;value&gt;|set k-v with expiration time
 mset &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; | set multiple k-v pairs
 append &lt;key&gt; &lt;value&gt;|Appends value to the existing key
 
