@@ -41,3 +41,12 @@
 - Redis package information: `brew info redis`
 - Test if redis-server is running:
 `redis-cli ping` => `PONG`
+
+### Redis-cli commands
+
+Command|Repsonse
+-------|--------
+ping|PONG
+
+
+
