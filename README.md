@@ -42,7 +42,9 @@
 - Test if redis-server is running:
 `redis-cli ping` =&gt; `PONG`
 
-### Redis-cli commands
+## Redis-cli commands
+
+### String related
 
 Command|Response
 -------|--------
@@ -60,6 +62,17 @@ ttl &lt;key&gt;|Shows the time in seconds for the k-v pair to expire or shows `-
 setex key &lt;time&gt; &lt;value&gt;|set k-v with expiration time
 mset &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; | set multiple k-v pairs
 append &lt;key&gt; &lt;value&gt;|Appends value to the existing key
+
+### List related
+
+Command|Response
+-------|---------
+lpush people "ramya"|Creates a list by name people and pushes "ramya" to the front
+lrange people 0 -1|fetches everything in the list `people`
+llen people|returns the length of the list
+lpop people|removes values from the beginning of list
+rpop people|removes values from the end of list
+linsert people before "ragupathy" "rani"| inserts a value in the list at a specified index
 
 
 You can use key spaces like `server:name`, `server:port`
