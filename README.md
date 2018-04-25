@@ -63,6 +63,10 @@ setex key &lt;time&gt; &lt;value&gt;|set k-v with expiration time
 mset &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; | set multiple k-v pairs
 append &lt;key&gt; &lt;value&gt;|Appends value to the existing key
 
+
+You can use key spaces like `server:name`, `server:port`
+
+
 ### List related
 
 Command|Response
@@ -74,8 +78,21 @@ lpop people|removes values from the beginning of list
 rpop people|removes values from the end of list
 linsert people before "ragupathy" "rani"| inserts a value in the list at a specified index
 
+### Set related
 
-You can use key spaces like `server:name`, `server:port`
+Set is an unordered list of strings.
+
+Command|Response
+-------|--------
+sadd cars "ford"|Creates a set by name cars and adds "ford" to it
+sismember cars "ford"|returns `1` if `ford` is a member of set cars
+smembers cars|gives all the members of the cars set
+scard cars|gives how many members are there in the set
+smove cars mycars "ford"| Moves "ford" from the cars set to another set mycars
+srem cars "honda"|removes a member from the set
+
+
+
 
 
 
