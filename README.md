@@ -44,9 +44,15 @@
 
 ### Redis-cli commands
 
-Command|Repsonse
+Command|Response
 -------|--------
 ping|PONG
+echo 'hello world'|"hello world"
+set <key> <value> | OK
+get <key>|<value>
+incr <key>|Increments an integer value by 1
+decr <key>|Decrements an integer value by 1
+exists <key>|1 if the key exists, 0 if the key doesn't exist
 
 
 
