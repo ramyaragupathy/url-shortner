@@ -91,6 +91,17 @@ scard cars|gives how many members are there in the set
 smove cars mycars "ford"| Moves "ford" from the cars set to another set mycars
 srem cars "honda"|removes a member from the set
 
+### Sorted sets
+
+They're similar to sets except that every member is associated to a score. Members are sorted from the smallest to greater score. Members are unique, but scores can be repeated.
+
+Command|Response
+-------|---------
+zadd users 1990 user1|adds user1 with score 1990 to the users set
+zrank users user1|returns the rank/index of user1 with users set
+zrange users 0 -1| returns all the members in the sorted set
+zincrby users 10 user1|increments the score of user 1 within the users sorted set by 10. This alters the rank of all the members
+
 
 
 
