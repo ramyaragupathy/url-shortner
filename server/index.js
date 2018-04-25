@@ -4,7 +4,8 @@ const app = express()
 const port = 3000
 const shortid = require('shortid')
 const bodyParser = require('body-parser')
-const base_url = 'http://localhost:5000'
+const base_url = 'http://localhost:' + port
+const redis = require('redis')
 let client
 
 // Set up connection to Redis
@@ -13,11 +14,11 @@ let client
 if (process.env.REDISTOGO_URL) {
   console.log(process.env.REDISTOGO_URL)
   const rtg = require('url').parse(process.env.REDISTOGO_URL)
-  client = require('redis').createClient(rtg.port, rtg.hostname)
+  client = redis.createClient(rtg.port, rtg.hostname)
   client.auth(rtg.auth.split(':')[1])
 } else {
   console.log('Creating Redis client ')
-  client = require('redis').createClient()
+  client = redis.createClient()
 }
 // Set up templating
 
@@ -52,6 +53,9 @@ app.post('/', function (req, res) {
   console.log('id: ', id)
 
   // Store them in Redis
+
+  // prints the reply from Redis: OK
+  // client.set(id, url, redis.print)
   client.set(id, url, function () {
     // Display the response
     res.render('output', { id: id, base_url: base_url })
