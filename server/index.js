@@ -1,11 +1,11 @@
 // Define variables and its values
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const shortid = require('shortid')
 const bodyParser = require('body-parser')
-const baseUrl = 'http://localhost:' + port
 const redis = require('redis')
+const baseUrl = process.env.BASE_URL || 'http://localhost:' + port 
 let client
 
 // Set up connection to Redis
