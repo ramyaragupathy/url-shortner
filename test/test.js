@@ -14,7 +14,7 @@ test('url-shortner Test Cases', function (testcase) {
     request.get(baseUrl, function (error, response, body) {
       if (!error) {
         stringExists = response.body.includes('url-shortner')
-        assert.equal(true, stringExists)
+        assert.equal(true, stringExists, 'Index page load is fine')
         assert.end()
       }
     })
@@ -27,21 +27,23 @@ test('url-shortner Test Cases', function (testcase) {
     request.post(baseUrl, {form: {url: longUrl}}, function (error, response, body) {
       if (!error) {
         stringExists = response.body.includes('Your shortened URL is')
-        assert.equal(true, stringExists)
+        assert.equal(true, stringExists, 'URL submission works!')
         assert.end()
       }
     })
   })
 
-  // TEST #3
+  // TEST #3, #4
   testcase.test('Test URL redirection', function (assert) {
     client.set('test', 'https://www.google.com', function () {
       request.get({
-        url: baseUrl + '/testurl',
+        // goes to app.route('/:id').all()
+        url: baseUrl + '/test',
+        // if `followRedirect: true` response would be google's home page iwth statusCode 200
         followRedirect: false
       }, function (error, response, body) {
         if (!error) {
-          assert.equal(response.headers.location, 'http://www.google.com')
+          assert.equal(response.headers.location, 'https://www.google.com', 'Redirection works')
           assert.equal(response.statusCode, 301)
           assert.end()
         }
@@ -49,19 +51,22 @@ test('url-shortner Test Cases', function (testcase) {
     })
   })
 
-  // TEST 4
+  // TEST #5, #6
   testcase.test('Check nonexistent URL', function (assert) {
     let stringExists
     request.get({
+      // goes to app.route('/:id').all()
       url: baseUrl + '/nonexistenturl',
       followRedirect: false
     }, function (error, response, body) {
       if (!error) {
         stringExists = response.body.includes('Link not found')
-        assert.equal(response.statusCode, 404)
+        assert.equal(response.statusCode, 404, '404 error shows up good!')
         assert.equal(true, stringExists)
         assert.end()
       }
     })
   })
 })
+
+test.onFinish(() => process.exit(0))
