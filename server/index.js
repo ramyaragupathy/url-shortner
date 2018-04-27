@@ -3,6 +3,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const myShortId = require('./idGenerator')
 const bodyParser = require('body-parser')
+const path = require('path')
 const redis = require('redis')
 const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
 let client
@@ -15,7 +16,7 @@ if (process.env.REDISTOGO_URL) {
   client = redis.createClient()
 }
 
-app.set('views', __dirname + '/views')
+app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'jade')
 app.engine('jade', require('jade').__express)
 
