@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000
 const shortid = require('shortid')
 const bodyParser = require('body-parser')
 const redis = require('redis')
-const baseUrl = process.env.BASE_URL || 'http://localhost:' + port 
+const baseUrl = process.env.BASE_URL || 'http://localhost:' + port
 let client
 
 // Set up connection to Redis
@@ -14,11 +14,11 @@ let client
 if (process.env.REDISTOGO_URL) {
   console.log(process.env.REDISTOGO_URL)
   const rtg = require('url').parse(process.env.REDISTOGO_URL)
- // client = redis.createClient(rtg.port, rtg.hostname)
-  // client.auth(rtg.auth.split(':')[1])
+  client = redis.createClient(rtg.port, rtg.hostname)
+  client.auth(rtg.auth.split(':')[1])
 } else {
-  // console.log('Creating Redis client ')
-  // client = redis.createClient()
+  console.log('Creating Redis client ')
+  client = redis.createClient()
 }
 // Set up templating
 
