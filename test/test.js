@@ -1,8 +1,10 @@
 // Declare variables
 const test = require('tape')
 const request = require('request')
+const redis = require('redis')
 const port = 3000
 const baseURL = 'http://localhost:' + port
+const client = redis.createClient()
 
 // TEST CASES
 test('url-shortner Test Cases', function (testcase) {
@@ -28,6 +30,22 @@ test('url-shortner Test Cases', function (testcase) {
         assert.equal(true, stringExists)
         assert.end()
       }
+    })
+  })
+
+  // TEST #3
+  testcase.test('Test URL redirection', function (assert) {
+    client.set('test', 'https://www.google.com', function () {
+      request.get({
+        url: 'http://localhost:3000/testurl',
+        followRedirect: false
+      }, function (error, response, body) {
+        if (!error) {
+          assert.equal(response.headers.location, 'http://www.google.com')
+          assert.equal(response.statusCode, 301)
+          assert.end()
+        }
+      })
     })
   })
 })
