@@ -9,8 +9,10 @@ const redis = require('redis')
 const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
 let client
 
-// Set up connection to Redis
-// REDISTOGO_URL is for Heroku deployment
+/**
+ * Random ID Generator
+ * @returns {string} an 8-character ID 
+ */
 const generateId = () => {
   let rID = ''
   for (let i = 0; i < ID_LENGTH; i++) {
@@ -19,6 +21,8 @@ const generateId = () => {
   return rID
 }
 
+// Set up connection to Redis
+// REDISTOGO_URL is for Heroku deployment
 if (process.env.REDISTOGO_URL) {
   // Production: Redis To Go
   console.log(process.env.REDISTOGO_URL)
