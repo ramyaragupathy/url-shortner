@@ -2,24 +2,11 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const idChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-const idLength = 8
+const myShortId = require('./idGenerator.js')
 const bodyParser = require('body-parser')
 const redis = require('redis')
 const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
 let client
-
-/**
- * Random ID Generator
- * @returns {string} an 8-character ID 
- */
-const generateId = () => {
-  let randomId = ''
-  for (let i = 0; i < idLength; i++) {
-    randomId += idChars.charAt(Math.floor(Math.random() * idChars.length))
-  }
-  return randomId
-}
 
 // Set up connection to Redis
 // REDISTOGO_URL is for Heroku deployment
@@ -52,7 +39,7 @@ app.set('view engine', 'jade')
 app.engine('jade', require('jade').__express)
 
 // to handle POST data
-app.use(bodyParser.json())
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))
@@ -66,7 +53,7 @@ app.post('/', function (req, res) {
   // extract the url parameter from request body
   let url = req.body.url
   // create a hashed short version
-  let id = generateId()
+  let id = myShortId.generateId()
   // store the k-v pair in Redis
 
   // prints the reply from Redis: OK
@@ -96,6 +83,7 @@ app.route('/:id').all(function (req, res) {
   })
 })
 
-// Listen
-app.listen(port)
-console.log('Listening on port ' + port)
+// listen
+app.listen(port, () => {
+  console.log('Listening on port ' + port)
+})
