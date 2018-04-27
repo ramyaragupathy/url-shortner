@@ -2,7 +2,8 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const shortid = require('shortid')
+const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const ID_LENGTH = 8
 const bodyParser = require('body-parser')
 const redis = require('redis')
 const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
@@ -10,6 +11,13 @@ let client
 
 // Set up connection to Redis
 // REDISTOGO_URL is for Heroku deployment
+const generateId = () => {
+  let rID = ''
+  for (let i = 0; i < ID_LENGTH; i++) {
+    rID += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length))
+  }
+  return rID
+}
 
 if (process.env.REDISTOGO_URL) {
   // Production: Redis To Go
@@ -54,7 +62,7 @@ app.post('/', function (req, res) {
   // extract the url parameter from request body
   let url = req.body.url
   // create a hashed short version
-  let id = shortid.generate()
+  let id = generateId()
   // store the k-v pair in Redis
 
   // prints the reply from Redis: OK
