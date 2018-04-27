@@ -4,7 +4,7 @@ const app = express()
 const port = 3000
 const shortid = require('shortid')
 const bodyParser = require('body-parser')
-const base_url = 'http://localhost:' + port
+const baseUrl = 'http://localhost:' + port
 const redis = require('redis')
 let client
 
@@ -31,7 +31,7 @@ app.set('view engine', 'jade')
 app.engine('jade', require('jade').__express)
 
 // Set URL
-app.set('base_url', base_url)
+// app.set('base_url', base_url)
 
 // Handle POST data
 app.use(bodyParser.json())
@@ -58,12 +58,27 @@ app.post('/', function (req, res) {
   // client.set(id, url, redis.print)
   client.set(id, url, function () {
     // Display the response
-    res.render('output', { id: id, base_url: base_url })
+    res.render('output', { id: id, base_url: baseUrl })
   })
 })
 
-// Serve static files
-app.use(express.static(__dirname + '/static'))
+app.route('/:id').all(function (req, res) {
+  // Get ID
+  let id = req.params.id.trim()
+  // Look up the URL
+  client.get(id, function (err, reply) {
+    if (!err && reply) {
+      // Redirect user to it
+      res.status(301)
+      res.set('Location', reply)
+      res.send()
+    } else {
+      // Confirm no such link in database
+      res.status(404)
+      res.render('404')
+    }
+  })
+})
 
 // Listen
 app.listen(port)
