@@ -10,8 +10,8 @@
   "author": "Ramya Ragupathy <r.ragupathy85@gmail.com>",
   "license": "ISC",
   "dependencies": {
-
     "express": "^4.16.3",
+    "jade": "^1.11.0",
     "redis": "^2.8.0",
     "shortid": "^2.2.8"
   },
