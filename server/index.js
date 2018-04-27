@@ -25,13 +25,11 @@ if (process.env.REDISTOGO_URL) {
 // __dirname => where the currently executing scripts reside
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
+
 // Express-compliant template engines such as Jade and Pug,
 // export a function named __express(filePath, options, callback),
 // which is called by the res.render() function to render the template code.
 app.engine('jade', require('jade').__express)
-
-// Set URL
-// app.set('base_url', base_url)
 
 // Handle POST data
 app.use(bodyParser.json())
