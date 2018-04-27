@@ -2,8 +2,8 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-const ID_LENGTH = 8
+const idChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const idLength = 8
 const bodyParser = require('body-parser')
 const redis = require('redis')
 const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
@@ -14,11 +14,11 @@ let client
  * @returns {string} an 8-character ID 
  */
 const generateId = () => {
-  let rID = ''
-  for (let i = 0; i < ID_LENGTH; i++) {
-    rID += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length))
+  let randomId = ''
+  for (let i = 0; i < idLength; i++) {
+    randomId += idChars.charAt(Math.floor(Math.random() * idChars.length))
   }
-  return rID
+  return randomId
 }
 
 // Set up connection to Redis
