@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000
 const shortid = require('shortid')
 const bodyParser = require('body-parser')
 const redis = require('redis')
-const baseUrl = process.env.BASE_URL || 'http://localhost:' + port
+const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
 let client
 
 // Set up connection to Redis
