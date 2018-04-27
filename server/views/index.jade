@@ -8,5 +8,9 @@ html(lang="en")
                 h1 url-kamkar
             div.row
                 form(action="/", method="POST")
-                    input(type="url", name="url")
-                    input(type="submit", value="Submit")
+                    div.form-group
+                        label(for='url') Provide your URL here:
+                        input#url.form-control(type='url', name='url')
+                        p
+                    div.form-group
+                        input(type='submit', value='Submit')
