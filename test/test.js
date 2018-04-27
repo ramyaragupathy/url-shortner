@@ -7,14 +7,14 @@ const baseUrl = 'http://localhost:' + port
 const client = redis.createClient()
 
 // TEST CASES
-test('url-shortner Test Cases', function (testcase) {
+test('url-kamkar Test Cases', function (testcase) {
   // TEST #1
   testcase.test('Test index page load', function (assert) {
     let stringExists
     request.get(baseUrl, function (error, response, body) {
       if (!error) {
-        stringExists = response.body.includes('url-shortner')
-        assert.equal(true, stringExists, 'Index page load is fine')
+        stringExists = response.body.includes('url-kamkar')
+        assert.equal(true, stringExists, 'Index page loads fine!')
         assert.end()
       }
     })
@@ -60,7 +60,7 @@ test('url-shortner Test Cases', function (testcase) {
       followRedirect: false
     }, function (error, response, body) {
       if (!error) {
-        stringExists = response.body.includes('Link not found')
+        stringExists = response.body.includes('Short URL not found')
         assert.equal(response.statusCode, 404, '404 error shows up good!')
         assert.equal(true, stringExists)
         assert.end()
