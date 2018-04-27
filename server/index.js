@@ -66,7 +66,8 @@ app.route('/:id').all(function (req, res) {
   // Look up the URL
   client.get(id, function (err, reply) {
     if (!err && reply) {
-      // Redirect user to it
+      // Redirect user to the original url
+      console.log(reply)
       res.status(301)
       res.set('Location', reply)
       res.send()
