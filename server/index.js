@@ -12,11 +12,18 @@ let client
 // REDISTOGO_URL is for Heroku deployment
 
 if (process.env.REDISTOGO_URL) {
+  // Production: Redis To Go
   console.log(process.env.REDISTOGO_URL)
   const rtg = require('url').parse(process.env.REDISTOGO_URL)
+  console.log('rtg ', rtg)
+  // Extract port, hostname, authentication string
   client = redis.createClient(rtg.port, rtg.hostname)
   client.auth(rtg.auth.split(':')[1])
 } else {
+  /* Localhost client instantiation
+   * When node_redis connects to a Redis instance on local machine,
+   * it assumes the default port and host information.
+   */
   console.log('Creating Redis client ')
   client = redis.createClient()
 }
@@ -67,9 +74,10 @@ app.route('/:id').all(function (req, res) {
   client.get(id, function (err, reply) {
     if (!err && reply) {
       // Redirect user to the original url
-      console.log(reply)
+      // console.log('Reply: ', reply)
       res.status(301)
       res.set('Location', reply)
+      console.log('Response: ', res)
       res.send()
     } else {
       // Confirm no such link in database
