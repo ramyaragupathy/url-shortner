@@ -48,4 +48,18 @@ test('url-shortner Test Cases', function (testcase) {
       })
     })
   })
+
+  // TEST 4
+  testcase.test('Check nonexistent URL', function(assert){
+    request.get({
+        url: 'http://localhost:3000/nonexistenturl',
+        followRedirect: false
+      }, function (error, response, body) {
+        if (!error) {
+          assert.equal(response.headers.location, 'http://www.google.com')
+          assert.equal(response.statusCode, 404)
+          assert.end()
+        }
+      })
+  })
 })
