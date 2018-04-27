@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
 const db = require('./db')
 const bodyParser = require('body-parser')
 const path = require('path')
+const port = process.env.PORT || 3000
 const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
+
 db.createRedisClient()
 
 app.listen(port, () => {
