@@ -27,6 +27,7 @@ if (process.env.REDISTOGO_URL) {
   console.log('Creating Redis client ')
   client = redis.createClient()
 }
+
 // Set up templating
 
 // __dirname => where the currently executing scripts reside
@@ -38,49 +39,45 @@ app.set('view engine', 'jade')
 // which is called by the res.render() function to render the template code.
 app.engine('jade', require('jade').__express)
 
-// Handle POST data
+// to handle POST data
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-// Define index route
+// define index route
 app.get('/', function (req, res) {
   res.render('index')
 })
 
 app.post('/', function (req, res) {
+  // extract the url parameter from request body
   let url = req.body.url
-  console.log('POST url: ', url)
-
-  // Create a hashed short version
+  // create a hashed short version
   let id = shortid.generate()
-  console.log('id: ', id)
-
-  // Store them in Redis
+  // store the k-v pair in Redis
 
   // prints the reply from Redis: OK
   // client.set(id, url, redis.print)
   client.set(id, url, function () {
-    // Display the response
+    // display the shortened url
     res.render('output', { id: id, base_url: baseUrl })
   })
 })
 
 app.route('/:id').all(function (req, res) {
-  // Get ID
+  // Get ID from url parameters
   let id = req.params.id.trim()
-  // Look up the URL
+  // look up the URL within Redis
   client.get(id, function (err, reply) {
+    // reply is the key value
     if (!err && reply) {
-      // Redirect user to the original url
-      // console.log('Reply: ', reply)
+      // redirect user to the original url
       res.status(301)
       res.set('Location', reply)
-      console.log('Response: ', res)
       res.send()
     } else {
-      // Confirm no such link in database
+      // confirm no such link in database
       res.status(404)
       res.render('404')
     }
