@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const myShortId = require('./idGenerator.js')
+const myShortId = require('./idGenerator')
 const bodyParser = require('body-parser')
 const redis = require('redis')
 const baseUrl = process.env.WEB_URL || 'http://localhost:' + port
